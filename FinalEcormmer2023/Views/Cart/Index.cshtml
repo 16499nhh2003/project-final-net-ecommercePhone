@@ -1,0 +1,109 @@
+﻿@{
+	Layout = "_Layout";
+	ViewBag.Title = "Cart";
+}
+@model IEnumerable<FinalEcormer2023.Models.CartItem>
+<body>
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Shopping Cart</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="category.html">Cart</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Cart Area =================-->
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            @{
+                                if(Model != null) {
+                                    foreach (var item in Model) {
+                                            <tr>
+                                                <td>
+                                                    <div class="media">
+                                                        <div class="d-flex">
+                                                            <img src="@item.Product.Url" style="width:240px ;height :240px" alt="">
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <p>@item.Product.Name</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <h5>@item.Product.Price.ToString("#,##0") VNĐ</h5>
+                                                </td>
+                                                <td>
+                                                    <div class="product_count">
+                                                        <input type="text" name="qty" id=@( "sst" + item.Product.Id) maxlength="12"
+                                                            value="@item.Quantity" title="Quantity:" class="input-text qty">
+                                                        <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.Product.Id"><i
+                                                                class="lnr lnr-chevron-up"></i></a>
+                                                        <a asp-action="Delete" asp-controller="Cart" asp-route-id="@item.Product.Id"> <i
+                                                                class="lnr lnr-chevron-down"></i></a>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                        <h5>@item.SubTotal.ToString("#,##0") VNĐ</h5>
+                                                </td>
+                                            </tr>
+                                    }
+                                }
+
+                                
+                            }
+                            <tr>
+                                <td>
+
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                    <h5>Subtotal</h5>
+                                </td>
+                                <td>
+                                    <h5>@ViewBag.Total </h5>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="checkout_btn_inner d-flex align-items-center">
+                                        <a class="gray_btn" href="/">Continue Shopping</a>
+                                        <a class="primary-btn" href="/cart/checkout">Proceed to checkout</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Cart Area =================-->
+</body>
